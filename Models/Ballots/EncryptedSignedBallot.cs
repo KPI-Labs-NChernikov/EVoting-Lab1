@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.Ballots;
+﻿namespace Models.Ballots;
 public class EncryptedSignedBallot
 {
     public byte[] EncryptedData { get; }

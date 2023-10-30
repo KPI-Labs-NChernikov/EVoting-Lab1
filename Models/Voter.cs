@@ -1,8 +1,9 @@
 ﻿using Algorithms.Abstractions;
-using Domain.Entities.Ballots;
+using Models.Entities.Ballots;
 using FluentResults;
+using Models.Ballots;
 
-namespace Domain.Entities;
+namespace Models;
 public class Voter
 {
     public int Id { get; }

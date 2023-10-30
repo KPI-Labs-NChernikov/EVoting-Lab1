@@ -1,8 +1,8 @@
 ﻿using Algorithms.Abstractions;
-using Domain.Entities.Ballots;
 using FluentResults;
+using Models.Ballots;
 
-namespace Domain.Entities;
+namespace Models;
 public class CentralElectionCommission
 {
     private readonly Dictionary<int, CandidateVotingResults> _candidates = new();

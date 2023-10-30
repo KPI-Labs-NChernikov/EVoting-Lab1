@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+﻿namespace Models;
 public class CandidateVotingResults
 {
     public Candidate Candidate { get; }

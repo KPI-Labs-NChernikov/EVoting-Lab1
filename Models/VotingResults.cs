@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+﻿namespace Models;
 public class VotingResults
 {
     public IReadOnlyCollection<CandidateVotingResults> CandidateResults { get; }
