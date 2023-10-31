@@ -1,5 +1,4 @@
 ﻿using Algorithms.Abstractions;
-using Models.Entities.Ballots;
 using FluentResults;
 using Models.Ballots;
 
@@ -18,14 +17,14 @@ public class Voter
 
     private readonly byte[] _privateKey;
 
-    public Voter(int id, string fullName, ushort age, bool isCapable, ISignatureProvider signatureService)
+    public Voter(int id, string fullName, ushort age, bool isCapable, IAsymmetricKeysGenerator keysGenerator)
     {
         Id = id;
         FullName = fullName;
         Age = age;
         IsCapable = isCapable;
 
-        (PublicKey, _privateKey) = signatureService.GenerateKeys();
+        (PublicKey, _privateKey) = keysGenerator.GenerateKeys();
     }
 
     public Result IsAbleToVote()
@@ -43,7 +42,7 @@ public class Voter
         return Result.Ok();
     }
 
-    public EncryptedSignedBallot GenerateBallot(int candidateId, byte[] centralElectionCommissionPublicKey, ISignatureProvider signatureProvider, IEncryptionProvider encryptionProvider, IObjectToByteArrayTransformer objectToByteArrayTransformer)
+    public EncryptedSignedBallot GenerateBallot(int candidateId, byte[] centralElectionCommissionKey, ISignatureProvider signatureProvider, IEncryptionProvider encryptionProvider, IObjectToByteArrayTransformer objectToByteArrayTransformer)
     {
         var ballot = new Ballot(Id, candidateId);
 
@@ -51,7 +50,7 @@ public class Voter
         var signedBallot = new SignedBallot(ballot, signatureProvider.Sign(ballotAsByteArray, _privateKey), PublicKey);
 
         var signedBallotAsByteArray = objectToByteArrayTransformer.Transform(signedBallot);
-        var encryptedSignedBallot = new EncryptedSignedBallot(encryptionProvider.Encrypt(signedBallotAsByteArray, centralElectionCommissionPublicKey));
+        var encryptedSignedBallot = new EncryptedSignedBallot(encryptionProvider.Encrypt(signedBallotAsByteArray, centralElectionCommissionKey));
 
         return encryptedSignedBallot;
     }

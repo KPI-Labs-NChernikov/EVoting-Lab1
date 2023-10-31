@@ -13,7 +13,9 @@ public class CentralElectionCommission
 
     public VotingResults VotingResults => new(_candidates.Values);
 
-    public CentralElectionCommission(IEnumerable<Candidate> candidates, IEnumerable<Voter> voters)
+    public byte[] BallotEncryptionKey { get; }
+
+    public CentralElectionCommission(IEnumerable<Candidate> candidates, IEnumerable<Voter> voters, ISymmetricKeyGenerator keyGenerator)
     {
         foreach (var candidate in candidates)
         {
@@ -24,6 +26,8 @@ public class CentralElectionCommission
         {
             _voters.Add(voter.Id, voter);
         }
+
+        BallotEncryptionKey = keyGenerator.GenerateKey();
     }
 
     public Result AcceptBallot(EncryptedSignedBallot ballot, ISignatureProvider signatureProvider, IEncryptionProvider encryptionProvider, IObjectToByteArrayTransformer objectToByteArrayTransformer)
