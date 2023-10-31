@@ -27,8 +27,10 @@ public sealed class VotingResults : ICloneable
             candidatesClone.Add(new CandidateVotingResults(new Candidate(candidateResults.Candidate.Id, candidateResults.Candidate.FullName)) { Votes = candidateResults.Votes });
         }
 
-        var clone = new VotingResults(candidatesClone);
-        clone.VotingCompletedAt = VotingCompletedAt;
+        var clone = new VotingResults(candidatesClone)
+        {
+            VotingCompletedAt = VotingCompletedAt
+        };
         return clone;
     }
 }

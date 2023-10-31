@@ -43,8 +43,8 @@ public sealed class CentralElectionCommission
             e => new Error("Message has wrong format or was incorrectly encrypted.").CausedBy(e)))
         .Bind(sb =>
         {
-            var isSignatureAuthentic = signatureProvider.Verify(objectToByteArrayTransformer.Transform(sb.Ballot), sb.Signature, sb.PublicKey);
-            if (!isSignatureAuthentic)
+            var signatureIsAuthentic = signatureProvider.Verify(objectToByteArrayTransformer.Transform(sb.Ballot), sb.Signature, sb.PublicKey);
+            if (!signatureIsAuthentic)
             {
                 return Result.Fail(new Error("The signature is not authentic."));
             }
