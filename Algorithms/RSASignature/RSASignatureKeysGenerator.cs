@@ -3,7 +3,7 @@ using Algorithms.Common;
 using System.Security.Cryptography;
 
 namespace Algorithms.RSASignature;
-public class RSASignatureKeysGenerator : IAsymmetricKeysGenerator
+public sealed class RSASignatureKeysGenerator : IAsymmetricKeysGenerator
 {
     public Keys GenerateKeys()
     {

@@ -1,5 +1,5 @@
-﻿namespace Models.Ballots;
-public class EncryptedSignedBallot
+﻿namespace Domain.Models.Ballots;
+public sealed class EncryptedSignedBallot
 {
     public byte[] EncryptedData { get; }
 

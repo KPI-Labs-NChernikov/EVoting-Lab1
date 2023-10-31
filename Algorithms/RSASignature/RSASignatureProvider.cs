@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 
 namespace Algorithms.RSASignature;
-public class RSASignatureProvider : ISignatureProvider
+public sealed class RSASignatureProvider : ISignatureProvider
 {
     public HashAlgorithmName HashAlgorithmName
     {

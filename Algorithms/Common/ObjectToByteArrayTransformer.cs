@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Text;
 
 namespace Algorithms.Common;
-public class ObjectToByteArrayTransformer : IObjectToByteArrayTransformer
+public sealed class ObjectToByteArrayTransformer : IObjectToByteArrayTransformer
 {
     public byte[] Transform(object obj)
     {

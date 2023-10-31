@@ -1,7 +1,7 @@
 ﻿using Algorithms.Abstractions;
 
 namespace Algorithms.XorEncryption;
-public class XorEncryptionProvider : IEncryptionProvider
+public sealed class XorEncryptionProvider : IEncryptionProvider
 {
     public byte[] Encrypt(byte[] data, byte[] key)
     {

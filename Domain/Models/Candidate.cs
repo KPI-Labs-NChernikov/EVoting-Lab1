@@ -1,5 +1,5 @@
-﻿namespace Models;
-public class Candidate
+﻿namespace Domain.Models;
+public sealed class Candidate
 {
     public int Id { get; }
 

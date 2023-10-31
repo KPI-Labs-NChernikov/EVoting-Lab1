@@ -1,5 +1,5 @@
-﻿namespace Models.Ballots;
-public class Ballot
+﻿namespace Domain.Models.Ballots;
+public sealed class Ballot
 {
     public int VoterId { get; }
 

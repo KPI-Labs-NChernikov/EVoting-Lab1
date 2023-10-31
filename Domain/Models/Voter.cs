@@ -1,9 +1,9 @@
 ﻿using Algorithms.Abstractions;
 using FluentResults;
-using Models.Ballots;
+using Domain.Models.Ballots;
 
-namespace Models;
-public class Voter
+namespace Domain.Models;
+public sealed class Voter
 {
     public int Id { get; }
 

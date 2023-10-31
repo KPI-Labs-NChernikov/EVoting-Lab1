@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 
 namespace Algorithms.XorEncryption;
-public class XorEncryptionKeyGenerator : ISymmetricKeyGenerator
+public sealed class XorEncryptionKeyGenerator : ISymmetricKeyGenerator
 {
     public int KeySize
     {
