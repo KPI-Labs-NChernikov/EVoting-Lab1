@@ -11,5 +11,8 @@ The simple e-voting protocol has the next characteristics:
 The flow of the simple e-voting protocol is the next:
 - Lists of candidates and voters are formed;
 - Each voter chooses the candidate, votes and signs the ballot with their private RSA key;
-- Each voter encrypts their ballot with the public XOR key of the Central Election Commission;
+- Each voter encrypts their ballot with the XOR key of the Central Election Commission;
 - Central Election Commission decrypts the ballots, checks signatures and publishes the results of voting.
+
+**Warning**  
+XOR cipher is used here only for demonstration purposes and it should not be used in real e-voting systems. This algorithm is symmetric and all voters have access to the key, so, ballots can be easily decrypted and read in case of interception.
