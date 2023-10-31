@@ -61,6 +61,12 @@ public sealed class CentralElectionCommission
                 return Result.Fail(new Error("The ballot was not signed by the voter."));
             }
 
+            var voterAbility = voter.IsAbleToVote();
+            if (!voterAbility.IsSuccess)
+            {
+                return voterAbility;
+            }
+
             return Result.Ok(sb.Ballot);
         })
         .Bind(b =>
