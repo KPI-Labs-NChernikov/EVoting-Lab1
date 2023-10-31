@@ -1,4 +1,4 @@
-﻿namespace Domain.Models.Ballots;
+﻿namespace Application.Models.Ballots;
 public sealed class SignedBallot
 {
     public Ballot Ballot { get; }

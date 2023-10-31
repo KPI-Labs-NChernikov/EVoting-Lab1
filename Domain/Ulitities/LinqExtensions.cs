@@ -1,8 +1,8 @@
-﻿using Domain.Models;
+﻿using Domain.Entities;
 
 namespace Domain.Ulitities;
 public static class LinqExtensions
 {
-    public static IOrderedEnumerable<CandidateVotingResults> OrderByVotes(this IEnumerable<CandidateVotingResults> candidatesVotingResults)
+    public static IOrderedEnumerable<Candidate> OrderByVotes(this IEnumerable<Candidate> candidatesVotingResults)
         => candidatesVotingResults.OrderByDescending(c => c.Votes);
 }
