@@ -9,7 +9,7 @@ public class CentralElectionCommissionService
 
     }
 
-    public Result AcceptBallot(byte[] encryptedSignedBallot)
+    public Result AcceptBallot(EncryptedSignedBallotDto encryptedSignedBallot)
     {
 
     }
