@@ -3,7 +3,7 @@
 namespace Domain.Entities;
 public sealed class Voter
 {
-    public int Id { get; }
+    public int Id { get; set; }
 
     public string FullName { get; }
 
@@ -15,9 +15,8 @@ public sealed class Voter
 
     public bool HasVoted { get; private set; }
 
-    public Voter(int id, string fullName, ushort age, bool isCapable, byte[] publicKey)
+    public Voter(string fullName, ushort age, bool isCapable, byte[] publicKey)
     {
-        Id = id;
         FullName = fullName;
         Age = age;
         IsCapable = isCapable;

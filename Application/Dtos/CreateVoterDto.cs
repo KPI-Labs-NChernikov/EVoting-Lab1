@@ -1,10 +1,2 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Dtos;
-internal class CreateVoterDto
-{
-}
+﻿namespace Application.Dtos;
+public sealed record CreateVoterDto(string FullName, ushort Age, bool IsCapable);

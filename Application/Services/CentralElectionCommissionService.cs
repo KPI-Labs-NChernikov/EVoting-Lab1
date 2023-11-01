@@ -1,29 +1,30 @@
 ﻿using Application.Dtos;
+using FluentResults;
 
 namespace Application.Services;
 public class CentralElectionCommissionService
 {
-    public Action StartVoting(IReadOnlyCollection<CreateCandidateDto> candidates)
+    public Result StartVoting(IReadOnlyCollection<CreateCandidateDto> candidates)
     {
 
     }
 
-    public Action AcceptBallot(byte[] encryptedSignedBallot)
+    public Result AcceptBallot(byte[] encryptedSignedBallot)
     {
 
     }
 
-    public Action CompleteVoting()
+    public Result CompleteVoting()
     {
 
     }
 
-    public Action<IReadOnlyCollection<CandidateDto>> GetVotingResults()
+    public Result<IReadOnlyCollection<CandidateDto>> GetVotingResults()
     {
 
     }
 
-    public Action<IReadOnlyCollection<CandidateDto>> GetVotingResultsOrdered()
+    public Result<IReadOnlyCollection<CandidateDto>> GetVotingResultsOrdered()
     {
 
     }
