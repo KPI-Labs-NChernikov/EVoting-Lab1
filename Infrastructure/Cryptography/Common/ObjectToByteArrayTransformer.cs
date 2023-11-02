@@ -1,0 +1,17 @@
+﻿using System.Text.Json;
+using System.Text;
+using Application.Abstractions.Cryptography;
+
+namespace Infrastructure.Cryptography.Common;
+public sealed class ObjectToByteArrayTransformer : IObjectToByteArrayTransformer
+{
+    public byte[] Transform(object obj)
+    {
+        return Encoding.UTF8.GetBytes(JsonSerializer.Serialize(obj));
+    }
+
+    public T? ReverseTransform<T>(byte[] data)
+    {
+        return JsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(data));
+    }
+}
