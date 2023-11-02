@@ -69,7 +69,7 @@ public sealed class CentralElectionCommission
             return Result.Fail(new Error("The voter was not found."));
         }
 
-        var signatureBelongsToVoter = voter!.PublicKey == signedBallot.PublicKey;
+        var signatureBelongsToVoter = voter!.PublicKey.SequenceEqual(signedBallot.PublicKey);
         if (!signatureBelongsToVoter)
         {
             return Result.Fail(new Error("The ballot was not signed by the voter."));

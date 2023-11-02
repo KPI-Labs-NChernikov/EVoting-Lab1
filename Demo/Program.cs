@@ -29,7 +29,8 @@ var commission = new CentralElectionCommission(candidates, voters, xorKeyGenerat
 
 foreach (var voter in voters)
 {
-    var ballot = voter.GenerateBallot(random.Next(1, candidates.Count + 1), commission.BallotEncryptionKey, rsaSignatureProvider, xorEncryptionProvider, objectToByteArrayTransformer);
+    var candidateId = candidates[random.Next(0, candidates.Count)].Id;
+    var ballot = voter.GenerateBallot(candidateId, commission.BallotEncryptionKey, rsaSignatureProvider, xorEncryptionProvider, objectToByteArrayTransformer);
     var result = commission.AcceptBallot(ballot, rsaSignatureProvider, xorEncryptionProvider, objectToByteArrayTransformer);
 
     if (result.IsSuccess)
@@ -38,7 +39,7 @@ foreach (var voter in voters)
     }
     else
     {
-        Console.WriteLine($"Error: {string.Join(Environment.NewLine, result.Errors)}");
+        Console.WriteLine($"Error: {string.Join(" ", result.Errors.Select(e => e.Message))}");
     }
 }
 
