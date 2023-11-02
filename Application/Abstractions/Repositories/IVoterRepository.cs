@@ -3,7 +3,6 @@
 namespace Application.Abstractions.Repositories;
 public interface IVoterRepository
 {
-    void AddOrUpdate(Voter voter);
+    void Add(Voter voter);
     Voter? GetById(int id);
-    void RemoveAll();
 }

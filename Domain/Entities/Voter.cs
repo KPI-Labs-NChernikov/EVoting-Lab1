@@ -11,17 +11,15 @@ public sealed class Voter
 
     public bool IsCapable { get; }
 
-    public byte[] PublicKey { get; }
+    public byte[]? PublicKey { get; set; }
 
     public bool HasVoted { get; private set; }
 
-    public Voter(string fullName, ushort age, bool isCapable, byte[] publicKey)
+    public Voter(string fullName, ushort age, bool isCapable)
     {
         FullName = fullName;
         Age = age;
         IsCapable = isCapable;
-
-        PublicKey = publicKey;
     }
 
     public Result IsAbleToVote()

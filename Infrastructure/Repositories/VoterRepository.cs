@@ -4,24 +4,24 @@ using Domain.Entities;
 namespace Infrastructure.Repositories;
 public class VoterRepository : IVoterRepository
 {
-    private readonly Dictionary<int, Voter> _votes = new();
+    private readonly Dictionary<int, Voter> _voters = new();
 
     private static int _lastVoterId = 0;
 
-    public void AddOrUpdate(Voter voter)
+    public void Add(Voter voter)
     {
         _lastVoterId++;
         voter.Id = _lastVoterId;
-        _votes[voter.Id] = voter;
+        _voters[voter.Id] = voter;
     }
 
     public Voter? GetById(int id)
     {
-        return _votes.GetValueOrDefault(id);
+        return _voters.GetValueOrDefault(id);
     }
 
-    public void RemoveAll()
+    public IReadOnlyCollection<Voter> GetAll()
     {
-        _votes.Clear();
+        return _voters.Values.ToList();
     }
 }

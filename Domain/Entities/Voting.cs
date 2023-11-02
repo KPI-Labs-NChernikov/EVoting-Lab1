@@ -1,11 +1,7 @@
-﻿using FluentResults;
-
-namespace Domain.Entities;
+﻿namespace Domain.Entities;
 public sealed class Voting
 {
     public IReadOnlyCollection<Candidate> Candidates { get; }
-    public DateTime? CompletedAt { get; private set; }
-    public bool IsCompleted { get; private set; }
 
     public byte[] CentralElectionCommissionKey { get; }
 
@@ -13,37 +9,6 @@ public sealed class Voting
     {
         Candidates = candidates;
         CentralElectionCommissionKey = centralElectionCommissionKey;
-    }
-
-    public Result AcceptBallot(Ballot ballot, Voter voter)
-    {
-        if (IsCompleted)
-        {
-            return Result.Fail("Voting is completed.");
-        }
-
-        var voterIsAble = voter.IsAbleToVote();
-        if (!voterIsAble.IsSuccess)
-        {
-            return voterIsAble;
-        }
-
-        ballot.Candidate.AddVote();
-        voter.MarkAsVoted();
-
-        return Result.Ok();
-    }
-
-    public Result CompleteVoting()
-    {
-        if (IsCompleted)
-        {
-            return Result.Fail("Voting is completed.");
-        }
-
-        IsCompleted = true;
-        CompletedAt = DateTime.Now;
-        return Result.Ok();
     }
 }
 //Result

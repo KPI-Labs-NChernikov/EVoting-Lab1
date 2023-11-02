@@ -4,27 +4,17 @@ using FluentResults;
 namespace Application.Services;
 public class CentralElectionCommissionService
 {
-    public Result StartVoting(IReadOnlyCollection<CreateCandidateDto> candidates)
-    {
-
-    }
-
     public Result AcceptBallot(EncryptedSignedBallotDto encryptedSignedBallot)
     {
 
     }
 
-    public Result CompleteVoting()
+    public Result<VotingDto> GetVotingResults()
     {
 
     }
 
-    public Result<IReadOnlyCollection<CandidateDto>> GetVotingResults()
-    {
-
-    }
-
-    public Result<IReadOnlyCollection<CandidateDto>> GetVotingResultsOrdered()
+    public Result<VotingDto> GetVotingResultsOrdered()
     {
 
     }
