@@ -57,6 +57,13 @@ SendBallotSignedByThirdParty(
     rsaSignatureProvider, 
     xorEncryptionProvider, 
     objectToByteArrayTransformer);
+SendDoubleBallot(
+    voters[3],
+    candidates[random.Next(0, candidates.Count)].Id,
+    commission,
+    rsaSignatureProvider,
+    xorEncryptionProvider,
+    objectToByteArrayTransformer);
 
 Console.WriteLine();
 
@@ -93,6 +100,18 @@ static void SendBallotSignedByThirdParty(int voterId, int candidateId, CentralEl
     var encryptedSignedBallot = new EncryptedSignedBallot(encryptionProvider.Encrypt(signedBallotAsByteArray, commission.BallotEncryptionKey));
 
     var result = commission.AcceptBallot(encryptedSignedBallot, signatureProvider, encryptionProvider, objectToByteArrayTransformer);
+
+    if (!result.IsSuccess)
+    {
+        PrintError(result);
+    }
+}
+
+static void SendDoubleBallot(Voter voter, int candidateId, CentralElectionCommission commission, ISignatureProvider signatureProvider, IEncryptionProvider encryptionProvider, IObjectToByteArrayTransformer objectToByteArrayTransformer)
+{
+    var ballot = voter.GenerateBallot(candidateId, commission.BallotEncryptionKey, signatureProvider, encryptionProvider, objectToByteArrayTransformer); ;
+
+    var result = commission.AcceptBallot(ballot, signatureProvider, encryptionProvider, objectToByteArrayTransformer);
 
     if (!result.IsSuccess)
     {
