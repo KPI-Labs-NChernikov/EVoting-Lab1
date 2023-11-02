@@ -37,8 +37,8 @@ public sealed class CentralElectionCommission
         .Bind(esb => DecryptSignedBallot(esb, encryptionProvider, objectToByteArrayTransformer))
         .Bind(sb => VerifySignature(sb, signatureProvider, objectToByteArrayTransformer))
         .Bind(sb => VerifyVoter(sb))
-        .Bind(sb => VerifyCandidate(sb).Map(sb => sb.Ballot))
-        .Bind(b => AddVote(b));
+        .Bind(sb => VerifyCandidate(sb))
+        .Bind(sb => AddVote(sb.Ballot));
     }
 
     private Result<SignedBallot> DecryptSignedBallot(EncryptedSignedBallot encryptedSignedBallot, IEncryptionProvider encryptionProvider, IObjectToByteArrayTransformer objectToByteArrayTransformer)
