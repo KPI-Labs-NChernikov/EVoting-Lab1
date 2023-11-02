@@ -1,4 +1,4 @@
-﻿namespace Domain.Models;
+﻿namespace Modelling.Models;
 public sealed class CandidateVotingResults
 {
     public Candidate Candidate { get; }
