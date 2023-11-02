@@ -94,7 +94,7 @@ public sealed class CentralElectionCommission
             return Result.Fail(new Error("Voter's vote has already been accepted."));
         }
 
-        var candidateWasFound = _candidates.TryGetValue(ballot.CandidateId, out var candidateResults);
+        var candidateWasFound = _candidates.ContainsKey(ballot.CandidateId);
         if (!candidateWasFound)
         {
             return Result.Fail(new Error("Candidate was not found."));
