@@ -68,7 +68,7 @@ SendDoubleBallot(
 Console.WriteLine();
 
 Console.WriteLine("Results:");
-var results = commission.VotingResults.CandidatesResults.OrderByVotes();
+var results = commission.VotingResults.CandidatesResults.OrderByVotes().ToList();
 foreach (var candidate in results)
 {
     Console.WriteLine($"{candidate.Candidate.FullName} (id: {candidate.Candidate.Id}): {candidate.Votes} votes");
