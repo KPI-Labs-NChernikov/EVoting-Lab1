@@ -15,6 +15,8 @@ public sealed class CentralElectionCommission
 
     public byte[] BallotEncryptionKey { get; }
 
+    public bool IsVotingCompleted { get; private set; }
+
     public CentralElectionCommission(IEnumerable<Candidate> candidates, IEnumerable<Voter> voters, ISymmetricKeyGenerator keyGenerator)
     {
         foreach (var candidate in candidates)
@@ -33,12 +35,17 @@ public sealed class CentralElectionCommission
 
     public Result AcceptBallot(EncryptedSignedBallot encryptedSignedBallot, ISignatureProvider signatureProvider, IEncryptionProvider encryptionProvider, IObjectToByteArrayTransformer objectToByteArrayTransformer)
     {
-        return Result.Ok(encryptedSignedBallot)
-        .Bind(esb => DecryptSignedBallot(esb, encryptionProvider, objectToByteArrayTransformer))
+        return CheckIfVotingIsCompleted()
+        .Bind(() => DecryptSignedBallot(encryptedSignedBallot, encryptionProvider, objectToByteArrayTransformer))
         .Bind(sb => VerifySignature(sb, signatureProvider, objectToByteArrayTransformer))
         .Bind(sb => VerifyVoter(sb))
         .Bind(sb => VerifyCandidate(sb))
         .Bind(sb => AddVote(sb.Ballot));
+    }
+
+    private Result CheckIfVotingIsCompleted()
+    {
+        return Result.FailIf(IsVotingCompleted, new Error("The voting is already completed."));
     }
 
     private Result<SignedBallot> DecryptSignedBallot(EncryptedSignedBallot encryptedSignedBallot, IEncryptionProvider encryptionProvider, IObjectToByteArrayTransformer objectToByteArrayTransformer)
@@ -109,5 +116,10 @@ public sealed class CentralElectionCommission
         _acceptedVotersIds.Add(ballot.VoterId);
 
         return Result.Ok();
+    }
+
+    public void CompleteVoting()
+    {
+        IsVotingCompleted = true;
     }
 }

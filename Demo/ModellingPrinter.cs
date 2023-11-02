@@ -92,10 +92,29 @@ public sealed class ModellingPrinter
 
     public void PrintVotingResults(CentralElectionCommission commission)
     {
+        commission.CompleteVoting();
+
         var results = commission.VotingResults.CandidatesResults.OrderByVotes().ToList();
         foreach (var candidate in results)
         {
             Console.WriteLine($"{candidate.Candidate.FullName} (id: {candidate.Candidate.Id}): {candidate.Votes} votes");
+        }
+    }
+
+    public void PrintVotingAfterCompletion(CentralElectionCommission commission, int candidateId, Voter voter)
+    {
+        if (!commission.IsVotingCompleted)
+        {
+            commission.CompleteVoting();
+        }
+
+        var ballot = voter.GenerateBallot(candidateId, commission.BallotEncryptionKey, _signatureProvider, _encryptionProvider, _objectToByteArrayTransformer);
+
+        var result = commission.AcceptBallot(ballot, _signatureProvider, _encryptionProvider, _objectToByteArrayTransformer);
+
+        if (!result.IsSuccess)
+        {
+            PrintError(result);
         }
     }
 }

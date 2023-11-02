@@ -27,3 +27,6 @@ Console.WriteLine("Results:");
 printer.PrintVotingResults(commission);
 
 Console.WriteLine();
+printer.PrintVotingAfterCompletion(commission, randomProvider.NextItem(candidates).Id, randomProvider.NextItem(voters));
+
+Console.WriteLine();
