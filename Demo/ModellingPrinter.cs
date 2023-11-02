@@ -92,7 +92,6 @@ public sealed class ModellingPrinter
 
     public void PrintVotingResults(CentralElectionCommission commission)
     {
-        Console.WriteLine("Results:");
         var results = commission.VotingResults.CandidatesResults.OrderByVotes().ToList();
         foreach (var candidate in results)
         {
