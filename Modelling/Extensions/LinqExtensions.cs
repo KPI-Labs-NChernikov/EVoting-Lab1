@@ -1,6 +1,6 @@
-﻿using Domain.Models;
+﻿using Modelling.Models;
 
-namespace Domain.Ulitities;
+namespace Modelling.Extensions;
 public static class LinqExtensions
 {
     public static IOrderedEnumerable<CandidateVotingResults> OrderByVotes(this IEnumerable<CandidateVotingResults> candidatesVotingResults)
