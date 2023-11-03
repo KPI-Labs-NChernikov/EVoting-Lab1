@@ -41,4 +41,27 @@ public sealed class DemoDataFactory
     {
         return new CentralElectionCommission(candidates, voters, _symmetricKeyGenerator);
     }
+
+    public Dictionary<Voter, int> CreateVotersWithCandidateIds(IReadOnlyList<Voter> voters)
+    {
+        var dictionary = new Dictionary<Voter, int>();
+        foreach (var voter in voters)
+        {
+            var candidateId = (voter.Id % 8) switch
+            {
+                1 => 1,
+                2 => 1,
+
+                3 => 2,
+                4 => 1,
+                5 => 3,
+                6 => 3,
+                7 => 3,
+
+                _ => throw new InvalidOperationException("Negative and zero voters' ids are not supported in this method.")
+            };
+            dictionary.Add(voter, candidateId);
+        }
+        return dictionary;
+    }
 }

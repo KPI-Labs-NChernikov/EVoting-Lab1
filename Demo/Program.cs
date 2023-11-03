@@ -15,9 +15,9 @@ var candidates = factory.CreateCandidates();
 var voters = factory.CreateVoters();
 var commission = factory.CreateCentralElectionCommission(candidates, voters);
 
-var printer = new ModellingPrinter(xorEncryptionProvider, rsaKeysGenerator, rsaSignatureProvider, objectToByteArrayTransformer, randomProvider);
+var printer = new ModellingPrinter(xorEncryptionProvider, rsaKeysGenerator, rsaSignatureProvider, objectToByteArrayTransformer);
 
-printer.PrintUsualVoting(commission, candidates, voters);
+printer.PrintUsualVoting(commission, factory.CreateVotersWithCandidateIds(voters));
 printer.PrintVotingWithIncorrectBallot(commission);
 printer.PrintVotingWithBallotSignedByThirdParty(commission, randomProvider.NextItem(candidates).Id, randomProvider.NextItem(voters.Skip(2)).Id);
 printer.PrintVotingWithDoubleBallot(commission, randomProvider.NextItem(candidates).Id, randomProvider.NextItem(voters.Skip(2)));

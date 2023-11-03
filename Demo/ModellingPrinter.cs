@@ -15,26 +15,20 @@ public sealed class ModellingPrinter
 
     private readonly IObjectToByteArrayTransformer _objectToByteArrayTransformer;
 
-    private readonly IRandomProvider _randomProvider;
-
-    public ModellingPrinter(IEncryptionProvider encryptionProvider, IAsymmetricKeysGenerator asymmetricKeysGenerator, ISignatureProvider signatureProvider, IObjectToByteArrayTransformer objectToByteArrayTransformer, IRandomProvider randomProvider)
+    public ModellingPrinter(IEncryptionProvider encryptionProvider, IAsymmetricKeysGenerator asymmetricKeysGenerator, ISignatureProvider signatureProvider, IObjectToByteArrayTransformer objectToByteArrayTransformer)
     {
         _encryptionProvider = encryptionProvider;
         _asymmetricKeysGenerator = asymmetricKeysGenerator;
         _signatureProvider = signatureProvider;
         _objectToByteArrayTransformer = objectToByteArrayTransformer;
-        _randomProvider = randomProvider;
     }
 
-    public void PrintUsualVoting(CentralElectionCommission commission, IReadOnlyList<Candidate> candidates, IReadOnlyList<Voter> voters)
+    public void PrintUsualVoting(CentralElectionCommission commission, Dictionary<Voter, int> votersWithCandidateIds)
     {
-        EncryptedSignedBallot ballot;
-        Result result;
-        foreach (var voter in voters)
+        foreach (var (voter, candidateId) in votersWithCandidateIds)
         {
-            var candidateId = _randomProvider.NextItem(candidates).Id;
-            ballot = voter.GenerateBallot(candidateId, commission.BallotEncryptionKey, _signatureProvider, _encryptionProvider, _objectToByteArrayTransformer);
-            result = commission.AcceptBallot(ballot, _signatureProvider, _encryptionProvider, _objectToByteArrayTransformer);
+            var ballot = voter.GenerateBallot(candidateId, commission.BallotEncryptionKey, _signatureProvider, _encryptionProvider, _objectToByteArrayTransformer);
+            var result = commission.AcceptBallot(ballot, _signatureProvider, _encryptionProvider, _objectToByteArrayTransformer);
 
             if (result.IsSuccess)
             {
